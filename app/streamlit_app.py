@@ -39,7 +39,7 @@ h1 {font-size: 2.2rem !important;}
 st.title("🎫 Support Ticket Triage")
 st.caption("Predicts SLA-breach risk for incoming consumer complaints using a LightGBM model trained on CFPB complaint data.")
 
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL = "https://support-ticket-triage.onrender.com/predict"
 
 col1, col2 = st.columns(2)
 
@@ -107,4 +107,4 @@ if submitted:
         st.error("⚠️ Could not connect to the API. Make sure the FastAPI server is running on port 8000.")
     except Exception as e:
         st.error(f"Error: {e}")
-        
+         

@@ -7,24 +7,26 @@ st.set_page_config(page_title="Support Ticket Triage", page_icon="🎫", layout=
 st.markdown("""
 <style>
 .stApp {
-    background: linear-gradient(135deg, #0a0f1e 0%, #131b2e 50%, #0a0f1e 100%) !important;
+    background: #FFFFFF !important;
 }
 h1, h1 * {
-    color: #FFFFFF !important;
+    color: #13233F !important;
 }
 p, .stCaption, [data-testid="stCaptionContainer"] {
-    color: #CADCFC !important;
+    color: #5B6B82 !important;
 }
 .main .block-container {
     padding-top: 2rem; 
     max-width: 900px;
-    background: rgba(20, 27, 45, 0.85);
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    border: 1px solid rgba(255,255,255,0.08);
 }
 label, .stSelectbox label, .stTextInput label, .stCheckbox label {
-    color: #E8EDF5 !important;
+    color: #1F2937 !important;
+    font-weight: 600 !important;
+}
+div[data-baseweb="select"] > div, .stTextInput input {
+    background-color: #F5F7FA !important;
+    color: #1F2937 !important;
+    border: 1px solid #D9DEE6 !important;
 }
 .risk-card {
     padding: 1.5rem 2rem;
@@ -33,9 +35,9 @@ label, .stSelectbox label, .stTextInput label, .stCheckbox label {
     font-size: 1.1rem;
     font-weight: 600;
 }
-.risk-high {background-color: #3d1a1a; border-left: 6px solid #ff4b4b; color: #ffb3b3;}
-.risk-medium {background-color: #3d2f0f; border-left: 6px solid #ffa500; color: #ffd580;}
-.risk-low {background-color: #10331a; border-left: 6px solid #21c354; color: #8ce8a8;}
+.risk-high {background-color: #FDECEC; border-left: 6px solid #D64550; color: #9B2C2C;}
+.risk-medium {background-color: #FEF3E2; border-left: 6px solid #E8A33D; color: #92400E;}
+.risk-low {background-color: #E9F7EE; border-left: 6px solid #2FA84F; color: #1E6B36;}
 </style>
 """, unsafe_allow_html=True)
 

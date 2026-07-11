@@ -1,4 +1,3 @@
-```markdown
 # Support Ticket Triage Intelligence
 
 Predicts SLA-breach risk for incoming consumer complaints using machine learning and NLP — built on 878,515 real complaints from the CFPB (US Consumer Financial Protection Bureau).
@@ -19,11 +18,9 @@ Support teams typically process complaints in the order they arrive, not the ord
 
 ## Architecture
 
-```
-Raw Complaints → Clean & Engineer → Train Models (structured + NLP) → FastAPI → Streamlit
-```
+Raw Complaints -> Clean & Engineer -> Train Models (structured + NLP) -> FastAPI -> Streamlit
 
-- **Data:** CFPB Consumer Complaint Database, 2023–2026, Debt Collection + Credit Card categories
+- **Data:** CFPB Consumer Complaint Database, 2023-2026, Debt Collection + Credit Card categories
 - **Structured modeling:** scikit-learn, LightGBM
 - **NLP:** sentence-transformers, BERTopic
 - **Backend:** FastAPI, deployed on Render
@@ -32,13 +29,11 @@ Raw Complaints → Clean & Engineer → Train Models (structured + NLP) → Fast
 
 ## Repository Structure
 
-```
-api/          FastAPI backend
-app/          Streamlit frontend
-src/          Shared feature engineering
-notebooks/    EDA, modeling, and experimentation
-data/         Trained models (raw data excluded — see .gitignore)
-```
+- `api/` — FastAPI backend
+- `app/` — Streamlit frontend
+- `src/` — Shared feature engineering
+- `notebooks/` — EDA, modeling, and experimentation
+- `data/` — Trained models (raw data excluded, see .gitignore)
 
 ## Limitations
 
@@ -49,5 +44,3 @@ data/         Trained models (raw data excluded — see .gitignore)
 ## Author
 
 Hiba P. — [LinkedIn](https://www.linkedin.com/in/hiba-puthiyedath) | [GitHub](https://github.com/Hiba-P)
-
-

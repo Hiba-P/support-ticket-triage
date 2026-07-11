@@ -1,0 +1,11 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+data/complaints_raw.csv
+data/narrative_dedup_with_topics.csv
+data/narrative_embeddings_checkpoint.npy
+data/narrative_embeddings_dedup.npy
+data/narrative_embeddings_sample.npy

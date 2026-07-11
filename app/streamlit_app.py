@@ -38,3 +38,75 @@ label, .stSelectbox label, .stTextInput label, .stCheckbox label {
 .risk-low {background-color: #10331a; border-left: 6px solid #21c354; color: #8ce8a8;}
 </style>
 """, unsafe_allow_html=True)
+
+st.title("🎫 Support Ticket Triage")
+st.caption("Predicts SLA-breach risk for incoming consumer complaints using a LightGBM model trained on CFPB complaint data.")
+
+API_URL = "https://support-ticket-triage.onrender.com/predict"
+
+col1, col2 = st.columns(2)
+
+with col1:
+    product = st.selectbox("📦 Product", ["Debt collection", "Credit card"])
+    issue = st.selectbox("⚠️ Issue", [
+        "Attempts to collect debt not owed",
+        "Written notification about debt",
+        "Took or threatened to take negative or legal action",
+        "Communication tactics",
+        "Fees or interest",
+        "Problem with a purchase shown on your statement",
+        "Other"
+    ])
+    state = st.text_input("📍 State (2-letter code)", "PA", max_chars=2)
+
+with col2:
+    sub_product = st.text_input("🏷️ Sub-product", "Medical debt")
+    has_narrative = st.checkbox("📝 Complaint includes narrative", value=True)
+
+st.write("")
+submitted = st.button("🔍 Predict Risk", use_container_width=True, type="primary")
+
+if submitted:
+    now = datetime.now().isoformat()
+    payload = {
+        "product": product,
+        "sub_product": sub_product,
+        "issue": issue,
+        "state": state,
+        "date_received": now,
+        "date_sent_to_company": now,
+        "has_narrative": has_narrative
+    }
+
+    try:
+        response = requests.post(API_URL, json=payload, timeout=30)
+        response.raise_for_status()
+        result = response.json()
+
+        proba = result["late_probability"]
+        risk = result["risk_level"]
+
+        st.write("")
+        m1, m2 = st.columns(2)
+        with m1:
+            st.metric("Late Probability", f"{proba*100:.1f}%")
+        with m2:
+            st.progress(min(proba, 1.0))
+
+        risk_labels = {
+            "high": ("🔴 HIGH RISK", "recommend immediate escalation", "risk-high"),
+            "medium": ("🟠 MEDIUM RISK", "recommend monitoring", "risk-medium"),
+            "low": ("🟢 LOW RISK", "standard processing queue", "risk-low"),
+        }
+        label, action, css_class = risk_labels[risk]
+
+        st.markdown(f"""
+        <div class="risk-card {css_class}">
+            {label} — {action}
+        </div>
+        """, unsafe_allow_html=True)
+
+    except requests.exceptions.ConnectionError:
+        st.error("⚠️ Could not connect to the API. The backend service may be starting up — please try again in 30-60 seconds.")
+    except Exception as e:
+        st.error(f"Error: {e}")
